@@ -14,6 +14,8 @@
 1.Push the service broker to paas
 ```
 cf push tingyun-service-broker --no-start
+cf set-env tingyun-service-broker SERVICE_BROKER_USERNAME admin
+cf set-env tingyun-service-broker SERVICE_BROKER_PASSWORD changeme
 ```
 2.Bind the mysql service instance
 ```
@@ -23,16 +25,24 @@ cf bind-service tingyun-service-broker mysql-instance
 ```
 cf start tingyun-service-broker
 ```
-4.Create the apm service instance(or with params)
+4.Create Service broker
+```
+cf create-service-broker tingyun-apm-service-broker admin changeme http://tingyun-service-broker.domain.io
+```
+5.Access the service broker plan
+```
+cf enable-service-access tingyun-apm-service-broker
+```
+6.Create the apm service instance(or with params)
 ```
 cf create-service tingyun-apm-service-broker free apm-example -c "{"license_key": "xxxxxx"}"
 ```
-5.Push app with tingyun buildpack,and bind the service to application
+7.Push app with tingyun buildpack,and bind the service to application
 ```
 cf push app_name -b tingyun_buildpack
 cf bind-service app_name apm-example
 ```
-6.Check your application environment
+8.Check your application environment
 ```
  "tingyun-apm-service-broker": [
         {
@@ -52,8 +62,10 @@ cf bind-service app_name apm-example
         }
       ]
 ```
-7.Restage application
+9.Restage application
 ```
 cf restage app_name
+
+-----> Downloading Tingyun Agent 2.5.0 from http://192.168.213.130:9999/packages/tingyun/tingyun-2.5.0.jar (found in cache)
 ```
-8.Check the apm monit data in website
+10.Check the apm monit data in website
