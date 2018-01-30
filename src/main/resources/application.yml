@@ -1,0 +1,54 @@
+security:
+  user:
+    name: ${SERVICE_BROKER_USERNAME:admin}
+    password: ${SERVICE_BROKER_PASSWORD:123.com}
+
+spring:
+  application:
+    name: tingyun-apm-service-broker
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://127.0.0.1:3306/tingyun_db?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+
+cloudfoundry:
+  servicebroker:
+    catalog:
+      services:
+        - name: tingyun-apm-service-broker
+          id: 8f5a3805-86b7-4d22-9ea2-5b9427b696c2
+          description: This is Tingyun APM Service Broker
+          bindable: true
+          plan_updatable: true
+          tags:
+          - tingyun
+          - tingyun_apm
+          metadata:
+            displayName: Ting Yun APM
+            imageUrl: https://saas.tingyun.com/static/website/images/ty-logo.png
+            longDescription: Tingyun APM Service Broker
+            providerDisplayName: Tingyun APM Service Broker
+            documentationUrl: https://github.com/wdxxs2z
+            supportUrl: https://github.com/wdxxs2z
+          plans:
+            - name: free
+              id: d0c79173-b4f2-4197-afc0-9944ba1f7549
+              bindable: true
+              free: true
+              licensekey: ${TINGYUN_LICENSE_KEY:2183a536715c4cd7de2a1c91770b0e33}
+              description: Ting Yun APM Free Plan.
+              metadata:
+                costs:
+                  - amount:
+                      usd: 0.0
+                    unit: MONTHLY
+                bullets:
+                  - Free plan
+                  - Limit two application
