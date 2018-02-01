@@ -16,6 +16,8 @@
 cf push tingyun-service-broker --no-start
 cf set-env tingyun-service-broker SERVICE_BROKER_USERNAME admin
 cf set-env tingyun-service-broker SERVICE_BROKER_PASSWORD changeme
+|default plan need a license key,otherwise you need create instance with para license_key
+cf set-env tingyun-service-broker TINGYUN_LICENSE_KEY xxxxx
 ```
 2.Bind the mysql service instance
 ```
